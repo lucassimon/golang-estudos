@@ -8,11 +8,11 @@ var y int = 20
 
 func main() {
 	fmt.Printf("Primeiro escopo %v \n", y)
-	printY()
+	PrintY()
 	fmt.Printf("Escopo do pacote %v \n", z)
-	printZ()
+	PrintZ()
 }
 
-func printY() {
+func PrintY() {
 	fmt.Printf("%v \n", y)
 }

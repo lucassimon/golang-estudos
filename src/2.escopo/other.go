@@ -4,6 +4,8 @@ import "fmt"
 
 var z string = "Hello"
 
-func printZ() {
+// A visibilidade é feita com a primeira letra maiuscula
+
+func PrintZ() {
 	fmt.Printf("%v \n", z)
 }
