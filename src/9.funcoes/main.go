@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"runtime/debug"
 	"strconv"
 )
 
@@ -114,7 +115,55 @@ func funcaoDentroDeFuncao() func() int {
 	}
 }
 
+func f3() {
+	debug.PrintStack()
+}
+
+func f2() {
+	f3()
+}
+
+func f1() {
+	f2()
+}
+
+func closure() func() {
+	x := 10
+	var funcao = func() {
+		fmt.Println(x)
+	}
+	return funcao
+}
+
+func fatorial(n int) (int, error) {
+	switch {
+	case n < 0:
+		return -1, fmt.Errorf("número inválido: %d", n)
+	case n == 0:
+		return 1, nil
+	default:
+		fatorialAnterior, _ := fatorial(n - 1)
+		return n * fatorialAnterior, nil
+	}
+}
+
+func utilizandoDefer(numero int) int {
+	defer fmt.Println("fim!")
+	if numero > 5000 {
+		fmt.Println("Valor alto...")
+		return 5000
+	}
+	fmt.Println("Valor baixo...")
+	return numero
+}
+
+// Função inicialização do pacote
+func init() {
+	fmt.Println("Inicializando...")
+}
+
 func main() {
+	fmt.Println("Main...")
 	soma(10)
 	subtracao(5)
 	divisao(15)
@@ -135,7 +184,7 @@ func main() {
 	fmt.Println(retornarDoisValores("Hello", "world"))
 	fmt.Println(diversosInteiros(1, 2, 5, 10))
 
-	// funcao anonima
+	// funcoes em variaveis
 	z := 0
 	add := func() int {
 		z += 2
@@ -146,5 +195,22 @@ func main() {
 
 	mult := funcaoDentroDeFuncao()
 	fmt.Println(mult())
+
+	f1()
+
+	// closure
+	imprimeX := closure()
+	imprimeX()
+
+	// recursividade
+	resultado, _ := fatorial(5)
+	fmt.Println(resultado)
+
+	_, err := fatorial(-4)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(utilizandoDefer(6000))
 
 }
