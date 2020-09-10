@@ -44,8 +44,19 @@ func repeticaoInfinita() {
 	}
 }
 
+func diversosInteiros(x ...int) int {
+	// variadic parametros
+	var total int = 0
+	for index, valor := range x {
+		total += valor
+		fmt.Printf("indice %v, total = %v \n", index, total)
+	}
+	return total
+}
+
 func main() {
 	repeticaoSimples()
 	repeticaoSimulandoWhile()
 	repeticaoInfinita()
+	diversosInteiros(1, 2, 3, 4, 5, 6)
 }
