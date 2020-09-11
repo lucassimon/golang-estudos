@@ -54,6 +54,18 @@ func diversosInteiros(x ...int) int {
 	return total
 }
 
+func repeticaoHierarquica() {
+
+	for horas := 0; horas <= 12; horas++ {
+		fmt.Println("horas: ", horas)
+
+		for minutos := 0; minutos < 60; minutos++ {
+			fmt.Println("minutos: ", minutos)
+		}
+		fmt.Println()
+	}
+}
+
 func main() {
 	repeticaoSimples()
 	repeticaoSimulandoWhile()

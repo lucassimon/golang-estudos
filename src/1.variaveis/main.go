@@ -47,6 +47,42 @@ func atribuicaoStringMultiplasLinhas() string {
 	return c
 }
 
+func entendendoIotas() {
+	// constantes com valores sucessivos comecando do zero
+	const (
+		a = iota
+		b = iota
+		c = iota
+		_ = iota
+		d = iota
+		_ = iota
+	)
+	fmt.Println(a, b, c, d)
+}
+
+func deslocamentosDeBitsParaDireita() {
+	// bitwise operation
+	x := 1
+	y := x << 1
+	z := y << 5
+
+	fmt.Printf("%b \n", x)
+	fmt.Printf("%b \n", y)
+	fmt.Printf("%b \n", z)
+}
+
+func deslocamentosDeBitsParaEsquerda() {
+	// bitwise operation
+	// bitwise operation
+	x := 1
+	y := x >> 1
+	z := y >> 5
+
+	fmt.Printf("%b \n", x)
+	fmt.Printf("%b \n", y)
+	fmt.Printf("%b \n", z)
+}
+
 func main() {
 	atribuicaoShorthand()
 	atribuicaoInteiro()
@@ -54,4 +90,7 @@ func main() {
 	atribuicaoPontoFlutuante()
 	atribuicaoBooleano()
 	atribuicaoStringMultiplasLinhas()
+	entendendoIotas()
+	deslocamentosDeBitsParaDireita()
+	deslocamentosDeBitsParaEsquerda()
 }
