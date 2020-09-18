@@ -13,6 +13,7 @@ func main() {
 	PrintZ()
 }
 
+// PrintY some Print
 func PrintY() {
 	fmt.Printf("%v \n", y)
 }

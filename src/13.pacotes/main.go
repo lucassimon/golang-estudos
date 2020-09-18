@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	car := car.Car{"gol", "teste"}
-	fmt.Println(car.start())
+	gol := car.Car{Name: "Gol Bolinha", Color: "Green"}
+	fmt.Println(gol.Start())
 }

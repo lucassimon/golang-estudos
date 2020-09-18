@@ -1,4 +1,4 @@
-package carros
+package car
 
 import "fmt"
 
@@ -8,10 +8,12 @@ type Car struct {
 	Color string `json:"color"`
 }
 
-func (c Car) info() string {
+// Info asdsd
+func (c Car) Info() string {
 	return fmt.Sprintf("Car: %s, Color: %s", c.Name, c.Color)
 }
 
-func (c Car) start() string {
+// Start asdasd
+func (c Car) Start() string {
 	return "The Car:" + c.Name + " has been started"
 }
