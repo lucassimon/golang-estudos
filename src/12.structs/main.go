@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type produto struct {
 	nome     string
@@ -52,6 +55,67 @@ func notaParaConceito(n nota) string {
 	}
 }
 
+// Vehicle Conceito de interface é forcar que todos tenham a mesma assinatura
+// padronizar também diversos adaptadores
+type Vehicle interface {
+	start() string
+}
+
+// Car Estrutura do carro e trabalhando com Tags
+type Car struct {
+	Name  string `json:"name"`
+	Year  int    `json:"-"`
+	Color string `json:"color"`
+}
+
+func (c Car) info() string {
+	return fmt.Sprintf("Car: %s, Year: %d, Color: %s", c.Name, c.Year, c.Color)
+}
+
+func (c Car) start() string {
+	return "The Car:" + c.Name + " has been started"
+}
+
+// SuperCar é uma heranca para carro
+type SuperCar struct {
+	Car
+	CanFly bool
+}
+
+// MotorCycle é um veiculo
+type MotorCycle struct {
+	Name string `json:"name"`
+}
+
+func (mc MotorCycle) start() string {
+	return "The MotorCycle:" + mc.Name + " has been started"
+}
+
+// funcao generica que recebe um parametro do tipo veiculo
+func startVehicle(v Vehicle) string {
+	return v.start()
+}
+
+// interfaces vazias para criar tipos dinamicos
+type Names []interface{}
+
+//  Na hora de chamar esse metodo eu preciso passar o ponteiro
+// que foi criado la funcao main
+func (n *Names) load() {
+	*n = Names{
+		"Foo",
+		"Bar",
+		"Ping",
+		"Pong",
+		1,
+		1.2222,
+	}
+}
+
+func (n Names) print() {
+	fmt.Println(n)
+}
+
 func main() {
 	var produto1 produto
 	produto1 = produto{
@@ -75,7 +139,46 @@ func main() {
 
 	fmt.Printf("Valor total do pedido é R$ %.2f", pedido.valorTotal())
 
+	fmt.Println("--- type nota")
 	fmt.Println(notaParaConceito(9.8))
 	fmt.Println(notaParaConceito(6.9))
 	fmt.Println(notaParaConceito(2.1))
+
+	fmt.Println("--- struct car")
+
+	car1 := Car{"Corolla", 2020, "White"}
+	car2 := Car{"BMW 320", 2020, "Black"}
+	fmt.Println(car1.Name, car1.Year, car1.Color)
+	fmt.Println(car1.info())
+	fmt.Println(car2.Name, car2.Year, car2.Color)
+	fmt.Println(car2.info())
+
+	fmt.Println("--- struct supercar")
+	fusca := Car{"Fusca", 1900, "White"}
+	supercar := SuperCar{Car: fusca, CanFly: true}
+	fmt.Println(supercar.info())
+
+	fmt.Println("--- des/serializando para json")
+	ferrari := Car{"Ferrari", 2020, "red"}
+	result, _ := json.Marshal(ferrari)
+	fmt.Println(result)
+	fmt.Println(string(result))
+
+	var gol Car
+	data := []byte(`{"name": "Gol", "year": 2018, "color": "Yellow"}`)
+
+	// apontar para o endereço de memória criado acima
+	json.Unmarshal(data, &gol)
+	fmt.Println(gol.Name, gol.Year, gol.Color)
+
+	fmt.Println("--- trabalhando com interfaces")
+	fmt.Println(startVehicle(gol))
+
+	fazer := MotorCycle{"Fazer"}
+	fmt.Println(startVehicle(fazer))
+
+	fmt.Println("--- // interfaces vazias para criar tipos")
+	var names Names
+	names.load()
+	names.print()
 }
