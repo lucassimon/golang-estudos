@@ -11,3 +11,7 @@ Trocando para o conceito de channels
 
 Quando um channel está ocupado mais nenhum outro processo pode utiliza-lo. Quando o channel é liberado outro processo pode
 utiliza-lo
+
+## Channel Unbuffered
+
+## Channel Buffered
