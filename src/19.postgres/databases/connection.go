@@ -9,8 +9,9 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// create connection with postgres db
-func createConnection() *sql.DB {
+// CreateConnection create connection with postgres db
+func CreateConnection() *sql.DB {
+	var db *sql.DB
 	// load .env file
 	err := godotenv.Load(".env")
 
@@ -19,7 +20,7 @@ func createConnection() *sql.DB {
 	}
 
 	// Open the connection
-	db, err := sql.Open("postgres", os.Getenv("POSTGRES_URL"))
+	db, err = sql.Open("postgres", os.Getenv("POSTGRES_URL"))
 
 	if err != nil {
 		panic(err)
