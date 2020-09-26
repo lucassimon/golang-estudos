@@ -1,9 +1,10 @@
-package account
+package accounts
 
 import (
 	"database/sql"
 	"fmt"
 	"log"
+	"time"
 
 	databases "github.com/lucassimon/golang-estudos/src/19.postgres/databases"
 	utils "github.com/lucassimon/golang-estudos/src/19.postgres/utils"
@@ -11,10 +12,11 @@ import (
 
 // User schema of the user table
 type Account struct {
-	ID       string `json:"id"`
-	Owner    string `json:"owner"`
-	Balance  int64  `json:"balance"`
-	Currency string `json:"currency"`
+	ID        string    `json:"id"`
+	Owner     string    `json:"owner"`
+	Balance   int64     `json:"balance"`
+	Currency  string    `json:"currency"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 // Create account
@@ -49,7 +51,6 @@ func Get(id string) (Account, error) {
 	// hardcoded
 	// create the postgres db connection
 	db := databases.CreateConnection()
-
 	// close the db connection
 	defer db.Close()
 
@@ -57,7 +58,7 @@ func Get(id string) (Account, error) {
 	var account Account
 
 	// create the select sql query
-	stmt := `SELECT * FROM accounts WHERE userid=$1`
+	stmt := `SELECT * FROM accounts WHERE id=$1`
 
 	// execute the sql statement
 	row := db.QueryRow(stmt, id)
