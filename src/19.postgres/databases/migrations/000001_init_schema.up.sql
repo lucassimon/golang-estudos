@@ -4,9 +4,9 @@
 
 -- GRANT ALL privileges on database golangestudos to estudos;
 
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- SELECT * FROM pg_available_extensions;
 

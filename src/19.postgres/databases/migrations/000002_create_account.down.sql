@@ -1,0 +1,5 @@
+BEGIN;
+DROP TABLE IF EXISTS accounts;
+DROP TYPE enum_mood;
+
+COMMIT;
