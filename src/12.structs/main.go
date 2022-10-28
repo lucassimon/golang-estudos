@@ -99,7 +99,8 @@ func startVehicle(v Vehicle) string {
 // interfaces vazias para criar tipos dinamicos
 type Names []interface{}
 
-//  Na hora de chamar esse metodo eu preciso passar o ponteiro
+//	Na hora de chamar esse metodo eu preciso passar o ponteiro
+//
 // que foi criado la funcao main
 func (n *Names) load() {
 	*n = Names{
@@ -131,9 +132,9 @@ func main() {
 	pedido := pedido{
 		userID: 1,
 		itens: []item{
-			item{produtoID: 1, qtde: 2, preco: 12.10},
-			item{2, 1, 23.49},
-			item{11, 100, 3.13},
+			{produtoID: 1, qtde: 2, preco: 12.10},
+			{2, 1, 23.49},
+			{11, 100, 3.13},
 		},
 	}
 
