@@ -1,0 +1,5 @@
+package print
+
+func PrintZ() {
+
+}
