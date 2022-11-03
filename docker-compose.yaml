@@ -1,0 +1,53 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+  static_volume:
+
+networks:
+  goestudos:
+    name: goestudos-network
+    external: true
+
+services:
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - default
+      - goestudos
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:alpine
+    networks:
+      - default
+      - goestudos
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/
+    networks:
+      - default
+      - goestudos
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: goestudos
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    networks:
+      - default
+      - goestudos
