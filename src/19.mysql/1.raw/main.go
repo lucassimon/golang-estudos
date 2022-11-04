@@ -1,9 +1,10 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
-	"context"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
 )
@@ -90,7 +91,7 @@ func selectAll(db *sql.DB) ([]Product, error) {
 		if err != nil {
 			return nil, err
 		}
-		products := append(products, p)
+		products = append(products, p)
 	}
 
 	return products, nil
@@ -108,7 +109,6 @@ func delete(db *sql.DB, id string) error {
 	}
 	return nil
 }
-
 
 func main() {
 	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/goestudos")
@@ -132,19 +132,18 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("product: %v possui o preço: %.2f", p.Name, p.Price)
+	fmt.Printf("Product: %v, possui o preço de %.2f\n", p.Name, p.Price)
 
 	products, err := selectAll(db)
 	if err != nil {
 		panic(err)
 	}
 	for _, p := range products {
-		fmt.Println("product: %v possui o preço: %.2f", p.Name, p.Price)
+		fmt.Printf("Product: %v, possui o preço de %.2f\n", p.Name, p.Price)
 	}
 
-	err = delete(product.Id)
+	err = delete(db, product.Id)
 	if err != nil {
 		panic(err)
 	}
 }
-
